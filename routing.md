@@ -53,6 +53,7 @@ For complex work, invoke a squad. For specialist work, invoke a role. For ambigu
 | Gameplay Programmer | `.claude/skills/gameplay-programmer.md` | Mechanic implementation, AI behaviour, input, character controller, gameplay systems |
 | Engine/Tools Programmer | `.claude/skills/engine-tools-programmer.md` | Engine systems, editor tools, build pipeline, automation, platform integration |
 | Graphics Programmer | `.claude/skills/graphics-programmer.md` | Rendering, shaders, lighting, post-processing, GPU profiling, scalability |
+| Security Specialist | `.claude/skills/security-specialist.md` | Threat modelling, anti-cheat / server-authority posture, save and entitlement integrity, identity / sessions, privacy, platform-cert security, modding-surface, AI safety, incident readiness |
 
 ### Audio, quality, and community
 
@@ -95,7 +96,7 @@ Use when:
 - The work needs implementation planning across disciplines
 - Engineering sequencing, content needs, and milestone readiness matter
 
-Roles: Game Producer, Game Designer, Gameplay Programmer, Level Designer (where space or layout is involved), Technical Artist (where art-to-engine matters), QA Lead.
+Roles: Game Producer, Game Designer, Gameplay Programmer, Level Designer (where space or layout is involved), Technical Artist (where art-to-engine matters), QA Lead, Security Specialist (when the work touches identity, save, network, monetisation, modding, or AI surface).
 
 Default outputs: build plan, technical approach, content plan, acceptance criteria check, test plan, perf budget posture, risks and dependencies, milestone checklist.
 
@@ -106,9 +107,9 @@ Use when:
 - The team needs feel polish, perf polish, accessibility review, bug sweep, or platform certification confidence
 - The question is "is this good enough to ship or to put in front of players?"
 
-Roles: QA Lead, Game UX Designer, Technical Artist, Audio Director, Game Director, Game Designer (when feel arbitration is needed), Player Researcher (when final playtest interpretation is needed), Game Analyst (when release-readiness needs a quantitative read).
+Roles: QA Lead, Game UX Designer, Technical Artist, Audio Director, Game Director, Game Designer (when feel arbitration is needed), Player Researcher (when final playtest interpretation is needed), Game Analyst (when release-readiness needs a quantitative read), Security Specialist (when the change touches auth, save, IAP, network, modding, AI, or platform-cert security clauses).
 
-Default outputs: QA findings, feel findings, perf findings, accessibility findings, audio findings, playtest synthesis, severity, expected versus actual behaviour, release risk, recommended fixes.
+Default outputs: QA findings, feel findings, perf findings, accessibility findings, audio findings, security findings, playtest synthesis, severity, expected versus actual behaviour, release risk, recommended fixes.
 
 ### Live & Community Squad
 
@@ -117,9 +118,9 @@ Use when:
 - A live game needs a content cadence, event, or balance pass
 - The team is running player-facing experiments or community-facing comms
 
-Roles: Community Manager, Game Designer, Game UX Designer, Game Producer, Game Director, Game Analyst (funnel / retention / experiments / balance evidence), Player Researcher (qualitative deep-dives on flagged cohorts).
+Roles: Community Manager, Game Designer, Game UX Designer, Game Producer, Game Director, Game Analyst (funnel / retention / experiments / balance evidence), Player Researcher (qualitative deep-dives on flagged cohorts), Security Specialist (anti-cheat, account abuse, IAP fraud, leaderboard / matchmaking abuse, incident readiness).
 
-Default outputs: signal diagnosis (qual + quant), audience and segment assumptions, design or messaging recommendation, content/event plan, experiment or measurement approach, risks and guardrails.
+Default outputs: signal diagnosis (qual + quant), audience and segment assumptions, design or messaging recommendation, content/event plan, experiment or measurement approach, abuse / cheat / fraud risks and guardrails.
 
 ### Tech Foundation Squad
 
@@ -128,9 +129,9 @@ Use when:
 - The codebase or content pipeline needs scaling or technical direction
 - Implementation needs to avoid future rework or platform-cert pain
 
-Roles: Engine/Tools Programmer, Graphics Programmer, Technical Artist, Gameplay Programmer, Game Producer (when scope and risk reporting matter), Game Analyst (when perf or stability needs a telemetry read across the player base).
+Roles: Engine/Tools Programmer, Graphics Programmer, Technical Artist, Gameplay Programmer, Game Producer (when scope and risk reporting matter), Game Analyst (when perf or stability needs a telemetry read across the player base), Security Specialist (when the change affects trust boundaries, identity, data access, external integrations, modding surface, or AI in-product).
 
-Default outputs: technical recommendation, integration approach, operational concerns, perf and memory implications, platform risks, testing approach, rollout plan.
+Default outputs: technical recommendation, integration approach, operational concerns, perf and memory implications, security and privacy implications, platform risks, testing approach, rollout plan.
 
 ## Delivery pipeline
 
@@ -183,7 +184,7 @@ Use a squad when the task touches more than one of: creative vision, design feel
 
 ### 3. Prefer specialist roles for narrow work
 
-Use one role when the task is clearly owned by that discipline. Examples: HUD readability tweak → Game UX Designer; shader perf review → Graphics Programmer or Technical Artist; encounter pacing → Level Designer; balance pass on an economy → Game Designer; dialogue line rewrite → Narrative Designer; build pipeline failure → Engine/Tools Programmer; mix or stinger problem → Audio Director; player-sentiment summary → Community Manager; repro instructions for a bug → QA Lead; playtest protocol or synthesis → Player Researcher; metric definition, funnel diagnosis, or experiment readout → Game Analyst.
+Use one role when the task is clearly owned by that discipline. Examples: HUD readability tweak → Game UX Designer; shader perf review → Graphics Programmer or Technical Artist; encounter pacing → Level Designer; balance pass on an economy → Game Designer; dialogue line rewrite → Narrative Designer; build pipeline failure → Engine/Tools Programmer; mix or stinger problem → Audio Director; player-sentiment summary → Community Manager; repro instructions for a bug → QA Lead; playtest protocol or synthesis → Player Researcher; metric definition, funnel diagnosis, or experiment readout → Game Analyst; threat model, anti-cheat review, save / entitlement integrity, privacy / DPIA, platform-cert security, modding-surface review, AI safety check → Security Specialist.
 
 ### 4. State the invoked role or squad
 

@@ -2,13 +2,13 @@
 
 Reusable Claude Code agent skills implementing a coordinated game-development studio operating system. Engine-agnostic personas and a delivery pipeline tuned for game features, systems, and content — works alongside any engine (Unity, Unreal, Godot, or custom).
 
-The suite contains 18 studio role personas plus a routing brain. Each role is a self-contained markdown skill (frontmatter + persona body) following the [Agent Skills](https://agentskills.io/home) format used by Claude Code, OpenAI Codex, and other compatible agents.
+The suite contains 19 studio role personas plus a routing brain. Each role is a self-contained markdown skill (frontmatter + persona body) following the [Agent Skills](https://agentskills.io/home) format used by Claude Code, OpenAI Codex, and other compatible agents.
 
 ## What's in here
 
 ```
 GameDev-skills/
-├── game-team/                        # The 18 studio role personas
+├── game-team/                        # The 19 studio role personas
 │   ├── game-producer.md
 │   ├── creative-director.md
 │   ├── game-director.md
@@ -24,6 +24,7 @@ GameDev-skills/
 │   ├── gameplay-programmer.md
 │   ├── engine-tools-programmer.md
 │   ├── graphics-programmer.md
+│   ├── security-specialist.md
 │   ├── audio-director.md
 │   ├── qa-lead.md
 │   └── community-manager.md
@@ -94,6 +95,7 @@ See `routing.md` for the full tier matrix and when to invoke each skill directly
 | Gameplay Programmer | Mechanic implementation, AI behaviour, input, character controller, gameplay systems |
 | Engine/Tools Programmer | Engine systems, editor tools, build pipeline, automation, platform integration |
 | Graphics Programmer | Rendering, shaders, lighting, post-processing, GPU profiling, scalability |
+| Security Specialist | Threat modelling, anti-cheat / server-authority, save and entitlement integrity, identity / sessions, privacy and regional compliance, platform-cert security, modding-surface, AI safety, incident readiness |
 
 ### Audio, quality, and community
 
