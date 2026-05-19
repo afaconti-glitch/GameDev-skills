@@ -2,13 +2,13 @@
 
 Reusable Claude Code agent skills implementing a coordinated game-development studio operating system. Engine-agnostic personas and a delivery pipeline tuned for game features, systems, and content — works alongside any engine (Unity, Unreal, Godot, or custom).
 
-The suite contains 19 studio role personas plus a routing brain. Each role is a self-contained markdown skill (frontmatter + persona body) following the [Agent Skills](https://agentskills.io/home) format used by Claude Code, OpenAI Codex, and other compatible agents.
+The suite contains 20 studio role personas, a delivery pipeline, 1 game design methodology reference, 14 web rendering reference skills (Three.js/R3F/Phaser + browser constraints), and 4 Blender automation skills — plus a routing brain. Each skill is a self-contained markdown skill (frontmatter + body) following the [Agent Skills](https://agentskills.io/home) format used by Claude Code, OpenAI Codex, and other compatible agents.
 
 ## What's in here
 
 ```
 GameDev-skills/
-├── game-team/                        # The 19 studio role personas
+├── game-team/                        # The 20 studio role personas
 │   ├── game-producer.md
 │   ├── creative-director.md
 │   ├── game-director.md
@@ -24,6 +24,7 @@ GameDev-skills/
 │   ├── gameplay-programmer.md
 │   ├── engine-tools-programmer.md
 │   ├── graphics-programmer.md
+│   ├── web-renderer.md               # Three.js / R3F / WebGL / WebGPU / WebXR
 │   ├── security-specialist.md
 │   ├── audio-director.md
 │   ├── qa-lead.md
@@ -34,14 +35,37 @@ GameDev-skills/
 │   ├── shape-task.md                 # Decompose brief into vertical slices
 │   ├── execute-chunk.md              # Implement one chunk safely
 │   ├── close-chunk.md                # Verify chunk closure against feel + acceptance
-│   └── cleanup-verify.md             # Post-pipeline build, perf, and asset sweep
+│   ├── cleanup-verify.md             # Post-pipeline build, perf, and asset sweep
+│   └── systematic-debugging.md       # Iron Law 4-phase debugging — root cause before any fix
+├── web-rendering/                    # Browser game reference skills (rules + runnable examples)
+│   ├── three-js-best-practices.md    # 120+ rules — memory, draw calls, shaders, WebGPU, WebXR, mobile
+│   ├── r3f-best-practices.md         # 70+ rules — useFrame, Zustand, Drei, Suspense, physics
+│   ├── phaser-best-practices.md      # Phaser 3 — scene lifecycle, physics, atlas, input, animation, tilemap, pooling
+│   ├── web-game-browser-constraints.md # Engine-agnostic — tab throttling, iOS audio, fullscreen, save data, SW cache
+│   ├── threejs-fundamentals.md       # Scene, cameras, renderer, Object3D, transforms, math utilities
+│   ├── threejs-animation.md          # AnimationMixer, skeletal, morph targets, blending, spring physics
+│   ├── threejs-shaders.md            # ShaderMaterial, uniforms, 6 GLSL patterns, onBeforeCompile
+│   ├── threejs-geometry.md           # BufferGeometry, 15+ shapes, InstancedMesh, merging, point clouds
+│   ├── threejs-interaction.md        # Camera controls, raycasting, TransformControls, keyboard/touch
+│   ├── threejs-lighting.md           # 6 light types, shadows, HDR/PMREM, 3-point studio, LightProbe
+│   ├── threejs-textures.md           # Loading, colour spaces, PBR set, video/canvas, KTX2, disposal
+│   ├── threejs-materials.md          # 9 material types, PBR advanced (clearcoat/transmission), toon
+│   ├── threejs-postprocessing.md     # EffectComposer, 15+ passes, bloom, SSAO, custom ShaderPass
+│   └── threejs-loaders.md            # GLTFLoader+DRACO/KTX2, OBJ/FBX/STL, RGBELoader, async patterns
+├── blender/                          # Blender Python automation skills
+│   ├── blender-scripting.md          # Foundation — headless execution, bpy API, import/export, batch
+│   ├── blender-3d-modeling.md        # Procedural meshes, BMesh, modifiers, curves, terrain
+│   ├── blender-render-automation.md  # Cycles/EEVEE config, GPU setup, batch renders, turntables
+│   └── blender-compositing.md        # Compositor nodes, colour grading, render passes, EXR output
+├── game-design/                      # Game design methodology references
+│   └── game-design-framework.md      # 5-Component Filter, Numbers Policy, State Machine Checklist, playtest templates
 ├── routing.md                        # The routing brain (paste into your CLAUDE.md)
 └── README.md
 ```
 
 ## Delivery pipeline
 
-Six skills that work as an integrated execution framework for game features and systems. The entry point is `run-pipeline` — it classifies work by size and routes it through the right phase composition, sharing state via `.claude/cache/pipeline.json`.
+Seven skills that work as an integrated execution framework for game features and systems. The entry point is `run-pipeline` — it classifies work by size and routes it through the right phase composition, sharing state via `.claude/cache/pipeline.json`.
 
 | Skill | Use when |
 |---|---|
@@ -51,8 +75,49 @@ Six skills that work as an integrated execution framework for game features and 
 | execute-chunk | Implementing one approved chunk safely with inspection, scoped edits, and targeted validation |
 | close-chunk | Verifying a completed chunk against acceptance criteria including feel, perf, and build health |
 | cleanup-verify | Post-pipeline gate sweep: build runs, no missing references, perf budget, editor opens cleanly |
+| systematic-debugging | Iron Law 4-phase methodology (Root Cause → Pattern → Hypothesis → Implementation) — use before writing any fix |
 
 See `routing.md` for the full tier matrix and when to invoke each skill directly.
+
+## Game design methodology
+
+One structured methodology reference that complements the Game Designer persona. Use directly when you need a decision framework, not just a persona stance.
+
+| Skill | Use when |
+|---|---|
+| game-design-framework | Evaluating whether a mechanic earns its place (5-Component Filter); setting balance numbers from first principles (Numbers Policy with floor/target/ceiling); fully specifying a player action before production (State Machine Checklist); writing structured playtest scenarios |
+
+## Web rendering reference skills
+
+Fourteen technical reference skills for browser-based games — two rule-set/best-practice files plus ten topic-focused skills with Quick Start snippets and runnable code examples. Use alongside the Web Renderer persona or directly for specific implementation lookups.
+
+| Skill | Use when |
+|---|---|
+| three-js-best-practices | Writing, reviewing, or optimising Three.js — memory disposal, draw calls, instancing, glTF loading, shaders (GLSL/TSL), WebGPU, WebXR, mobile |
+| r3f-best-practices | Writing, reviewing, or optimising React Three Fiber — useFrame animation, preventing re-renders, Zustand selectors, Drei helpers, Suspense, physics (Rapier) |
+| phaser-best-practices | Phaser 3 games — scene lifecycle, physics selection (Arcade vs Matter.js), texture atlas pipeline, audio sprites, input, sprite animation state machines, tilemap, object pooling, camera, ScaleManager, mobile |
+| web-game-browser-constraints | Engine-agnostic browser concerns — tab visibility/RAF throttling, iOS audio context unlock, Fullscreen API, Pointer Lock, Screen Wake Lock, localStorage vs IndexedDB, Service Worker caching, memory pressure, Web Workers |
+| threejs-fundamentals | Scene/camera/renderer setup, Object3D hierarchy, transforms, Vector3/Quaternion/Matrix4/Color math |
+| threejs-animation | AnimationMixer, clip/action API, skeletal bones, morph targets, blending, spring physics, procedural motion |
+| threejs-shaders | ShaderMaterial vs RawShaderMaterial, uniform types, Fresnel/dissolve/noise patterns, onBeforeCompile |
+| threejs-geometry | BufferGeometry custom creation, 15+ built-ins, InstancedMesh, merging, EdgesGeometry, point clouds |
+| threejs-interaction | OrbitControls/PointerLockControls, raycasting (click/hover), TransformControls, keyboard/touch input |
+| threejs-lighting | 6 light types, shadow config, HDR env via PMREMGenerator, 3-point studio setup, LightProbe |
+| threejs-textures | Texture loading, colour spaces, wrapping/filtering, PBR set (ORM), video/canvas, KTX2 compression |
+| threejs-materials | 9 material types, PBR clearcoat/transmission/iridescence/sheen, MeshToonMaterial, transparency |
+| threejs-postprocessing | EffectComposer, UnrealBloomPass, SSAOPass, BokehPass, OutlinePass, FXAA/SMAA, custom ShaderPass |
+| threejs-loaders | GLTFLoader+DRACO/KTX2, OBJ/FBX/STL/PLY, RGBELoader, LoadingManager, caching, async/Promise |
+
+## Blender 3D pipeline skills
+
+Four Blender Python automation skills for game asset creation, rendering, and compositing. All scripts are headless-compatible and written for Blender 3.0+ / Python 3.10+.
+
+| Skill | Use when |
+|---|---|
+| blender-scripting | Writing any Blender Python script — headless execution, `bpy` API, import/export, batch processing. Foundation skill — start here |
+| blender-3d-modeling | Generating geometry procedurally — `from_pydata`, BMesh operations, modifiers, curves, NURBS, terrain |
+| blender-render-automation | Configuring renders from code — Cycles/EEVEE setup, GPU acceleration, camera/lighting rigs, batch renders, turntable animations |
+| blender-compositing | Building compositor node graphs — colour grading, render pass combination, glare, depth-of-field, multi-layer EXR output |
 
 ## Roles at a glance
 
@@ -95,6 +160,7 @@ See `routing.md` for the full tier matrix and when to invoke each skill directly
 | Gameplay Programmer | Mechanic implementation, AI behaviour, input, character controller, gameplay systems |
 | Engine/Tools Programmer | Engine systems, editor tools, build pipeline, automation, platform integration |
 | Graphics Programmer | Rendering, shaders, lighting, post-processing, GPU profiling, scalability |
+| Web Renderer | Three.js / R3F scene architecture, WebGL/WebGPU performance, draw-call budget, TSL shaders, glTF pipeline, WebXR, cross-device scaling |
 | Security Specialist | Threat modelling, anti-cheat / server-authority, save and entitlement integrity, identity / sessions, privacy and regional compliance, platform-cert security, modding-surface, AI safety, incident readiness |
 
 ### Audio, quality, and community

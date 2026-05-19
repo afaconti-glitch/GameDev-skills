@@ -53,6 +53,7 @@ For complex work, invoke a squad. For specialist work, invoke a role. For ambigu
 | Gameplay Programmer | `.claude/skills/gameplay-programmer.md` | Mechanic implementation, AI behaviour, input, character controller, gameplay systems |
 | Engine/Tools Programmer | `.claude/skills/engine-tools-programmer.md` | Engine systems, editor tools, build pipeline, automation, platform integration |
 | Graphics Programmer | `.claude/skills/graphics-programmer.md` | Rendering, shaders, lighting, post-processing, GPU profiling, scalability |
+| Web Renderer | `.claude/skills/web-renderer.md` | Three.js / React Three Fiber scene architecture, WebGL/WebGPU performance, draw-call budget, TSL shaders, glTF asset pipeline, WebXR, mobile scaling — see also `web-rendering/` reference skills |
 | Security Specialist | `.claude/skills/security-specialist.md` | Threat modelling, anti-cheat / server-authority posture, save and entitlement integrity, identity / sessions, privacy, platform-cert security, modding-surface, AI safety, incident readiness |
 
 ### Audio, quality, and community
@@ -129,7 +130,7 @@ Use when:
 - The codebase or content pipeline needs scaling or technical direction
 - Implementation needs to avoid future rework or platform-cert pain
 
-Roles: Engine/Tools Programmer, Graphics Programmer, Technical Artist, Gameplay Programmer, Game Producer (when scope and risk reporting matter), Game Analyst (when perf or stability needs a telemetry read across the player base), Security Specialist (when the change affects trust boundaries, identity, data access, external integrations, modding surface, or AI in-product).
+Roles: Engine/Tools Programmer, Graphics Programmer, Web Renderer (when the project targets browser or WebXR), Technical Artist, Gameplay Programmer, Game Producer (when scope and risk reporting matter), Game Analyst (when perf or stability needs a telemetry read across the player base), Security Specialist (when the change affects trust boundaries, identity, data access, external integrations, modding surface, or AI in-product).
 
 Default outputs: technical recommendation, integration approach, operational concerns, perf and memory implications, security and privacy implications, platform risks, testing approach, rollout plan.
 
@@ -147,6 +148,7 @@ The entry point is always `run-pipeline`. It classifies the request, surfaces a 
 | execute-chunk | `.claude/skills/pipeline/execute-chunk.md` | Implement one approved chunk safely |
 | close-chunk | `.claude/skills/pipeline/close-chunk.md` | Verify closure against acceptance criteria including feel and perf |
 | cleanup-verify | `.claude/skills/pipeline/cleanup-verify.md` | Post-pipeline build/perf/asset gate sweep |
+| systematic-debugging | `.claude/skills/pipeline/systematic-debugging.md` | Iron Law 4-phase debugging methodology (Root Cause → Pattern → Hypothesis → Implementation); use before writing any fix |
 
 ### When to use run-pipeline
 
@@ -172,6 +174,77 @@ The entry point is always `run-pipeline`. It classifies the request, surfaces a 
 
 Shared state lives in `.claude/cache/pipeline.json`. Small flow does not touch the cache.
 
+## Game design methodology
+
+Rule-level references for mechanic evaluation, balance, and design rigour. Use alongside the game-designer or game-director personas when you need a structured decision framework rather than intuition alone.
+
+| Skill | File | Purpose |
+|---|---|---|
+| Game design framework | `game-design/game-design-framework.md` | 5-Component Relevance Filter (Clarity, Motivation, Response, Satisfaction, Fit), Numbers Policy for evidence-based balancing (floor/target/ceiling), State Machine Checklist for all player actions, and playtest scenario templates |
+
+### When to invoke game-design reference skills directly
+
+- Evaluating whether a proposed mechanic earns its place in the game (run the 5-Component Filter)
+- Setting or reviewing balance numbers from first principles (Numbers Policy)
+- Specifying a player action completely before it goes into production (State Machine Checklist)
+- Writing a structured playtest scenario that produces actionable data
+
+Use the Game Designer persona (`.claude/skills/game-designer.md`) for broader mechanic and system design work. The framework is the underlying methodology the persona draws on.
+
+---
+
+## Web rendering reference skills
+
+Detailed, rule-level implementation references for browser-based games and 3D. Invoke these alongside the Web Renderer persona or directly when the task is a specific technical lookup.
+
+| Skill | File | Purpose |
+|---|---|---|
+| Three.js best practices | `web-rendering/three-js-best-practices.md` | 120+ rules across memory disposal, render loop, draw calls, instancing, glTF loading, materials, lighting, TSL shaders, WebGPU, WebXR, mobile, and post-processing |
+| R3F best practices | `web-rendering/r3f-best-practices.md` | 70+ rules for React Three Fiber — useFrame animation, preventing re-renders, Zustand selectors, Drei helpers, Suspense, physics, post-processing |
+| Phaser best practices | `web-rendering/phaser-best-practices.md` | Phaser 3 scene architecture, scene management, physics (Arcade vs Matter.js), texture atlas pipeline, audio sprites, input handling, sprite animation, tilemap, object pooling, camera system, ScaleManager, mobile |
+| Web game browser constraints | `web-rendering/web-game-browser-constraints.md` | Engine-agnostic browser concerns: tab visibility/RAF throttling, iOS audio unlock, Fullscreen API, Pointer Lock, Screen Wake Lock, save data (localStorage vs IndexedDB), Service Worker caching, memory pressure, Web Workers |
+| Three.js fundamentals | `web-rendering/threejs-fundamentals.md` | Scene, cameras, WebGLRenderer config, Object3D hierarchy, coordinate system, Vector3/Matrix4/Quaternion/Euler/Color/MathUtils, cleanup patterns, Clock usage |
+| Three.js animation | `web-rendering/threejs-animation.md` | AnimationMixer, AnimationClip, AnimationAction, 6 keyframe track types, skeletal animation, morph targets, weight/additive blending, crossfade, spring physics |
+| Three.js shaders | `web-rendering/threejs-shaders.md` | ShaderMaterial vs RawShaderMaterial, all uniform types, 6 GLSL patterns (Fresnel, dissolve, noise, rim, displacement), onBeforeCompile for extending built-ins |
+| Three.js geometry | `web-rendering/threejs-geometry.md` | 15+ built-in geometries, BufferGeometry custom creation, InstancedMesh, geometry merging, EdgesGeometry, point clouds, morph targets, InstancedBufferGeometry |
+| Three.js interaction | `web-rendering/threejs-interaction.md` | OrbitControls, PointerLockControls, FlyControls, MapControls, FirstPersonControls, raycasting (click/hover), TransformControls, DragControls, keyboard/touch input |
+| Three.js lighting | `web-rendering/threejs-lighting.md` | 6 light types, shadow map config, HDR loading, PMREMGenerator, 3-point studio setup, LightProbe, shadow bias tuning |
+| Three.js textures | `web-rendering/threejs-textures.md` | TextureLoader, colour spaces, wrapping/filtering, UV mapping, PBR texture set (ORM), video/canvas/DataTexture, KTX2 compression, memory disposal |
+| Three.js materials | `web-rendering/threejs-materials.md` | 9 material types from Basic to Physical, PBR clearcoat/transmission/iridescence/sheen, MeshToonMaterial, performance hierarchy, blending modes, transparency |
+| Three.js post-processing | `web-rendering/threejs-postprocessing.md` | EffectComposer, RenderPass, UnrealBloomPass, SSAOPass, BokehPass, OutlinePass, FXAA/SMAA/TAA, custom ShaderPass, selective bloom, resize handling |
+| Three.js loaders | `web-rendering/threejs-loaders.md` | GLTFLoader (DRACO/KTX2/Meshopt), OBJ/FBX/STL/PLY, RGBELoader, LoadingManager, async/Promise patterns, asset caching, error handling, preload pipeline |
+
+### When to invoke web-rendering reference skills directly
+
+- Specific code pattern lookup (how to dispose geometry, how to use InstancedMesh, how to write a TSL shader, how to set up a Phaser scene, how to handle tab visibility)
+- Code review against known best practices
+- Debugging a specific Three.js, R3F, or Phaser performance issue
+- Any browser-environment concern: audio unlock, fullscreen, save data, offline caching
+
+Use the Web Renderer persona (`.claude/skills/web-renderer.md`) when the task needs architectural reasoning — scene design, platform scaling, asset pipeline planning, or WebXR integration.
+
+## 3D asset pipeline skills
+
+Blender Python automation skills for game asset creation, rendering, and compositing. Invoke when the task requires programmatic Blender operation — in-editor or headless.
+
+| Skill | File | Purpose |
+|---|---|---|
+| Blender scripting | `blender/blender-scripting.md` | Foundation — headless execution, scene manipulation, import/export, batch processing, custom properties. Start here before other Blender skills |
+| Blender 3D modelling | `blender/blender-3d-modeling.md` | Procedural mesh creation (`from_pydata`, BMesh, modifiers, curves, terrain) |
+| Blender render automation | `blender/blender-render-automation.md` | Cycles/EEVEE configuration, GPU setup, camera/lighting rig, batch renders, turntable scripts |
+| Blender compositing | `blender/blender-compositing.md` | Compositor node graphs — colour grading, render pass combination, glare, depth effects, multi-layer EXR output |
+
+### When to invoke Blender skills
+
+- Any task that requires writing a Blender Python script → start with `blender-scripting.md`
+- Procedural asset generation → `blender-3d-modeling.md`
+- Rendering pipeline, batch renders, turntables → `blender-render-automation.md`
+- Post-processing, compositing, EXR output → `blender-compositing.md`
+
+### Blender skill dependency order
+
+`blender-scripting` is the foundation. The other three skills assume familiarity with headless execution and `bpy` module structure covered there. For complex tasks, read `blender-scripting.md` first.
+
 ## Routing rules
 
 ### 1. Start by classifying the request
@@ -184,7 +257,7 @@ Use a squad when the task touches more than one of: creative vision, design feel
 
 ### 3. Prefer specialist roles for narrow work
 
-Use one role when the task is clearly owned by that discipline. Examples: HUD readability tweak → Game UX Designer; shader perf review → Graphics Programmer or Technical Artist; encounter pacing → Level Designer; balance pass on an economy → Game Designer; dialogue line rewrite → Narrative Designer; build pipeline failure → Engine/Tools Programmer; mix or stinger problem → Audio Director; player-sentiment summary → Community Manager; repro instructions for a bug → QA Lead; playtest protocol or synthesis → Player Researcher; metric definition, funnel diagnosis, or experiment readout → Game Analyst; threat model, anti-cheat review, save / entitlement integrity, privacy / DPIA, platform-cert security, modding-surface review, AI safety check → Security Specialist.
+Use one role when the task is clearly owned by that discipline. Examples: HUD readability tweak → Game UX Designer; shader perf review → Graphics Programmer or Technical Artist; encounter pacing → Level Designer; balance pass on an economy → Game Designer (+ game-design-framework.md for Numbers Policy); dialogue line rewrite → Narrative Designer; build pipeline failure → Engine/Tools Programmer; mix or stinger problem → Audio Director; player-sentiment summary → Community Manager; repro instructions for a bug → QA Lead; playtest protocol or synthesis → Player Researcher; metric definition, funnel diagnosis, or experiment readout → Game Analyst; threat model, anti-cheat review, save / entitlement integrity, privacy / DPIA, platform-cert security, modding-surface review, AI safety check → Security Specialist; Three.js scene design, draw-call budget, WebGPU migration, WebXR integration, R3F performance → Web Renderer (+ web-rendering/ reference skills); Phaser 3 scene setup, physics config, tilemap, animation, pooling → phaser-best-practices.md; tab visibility, audio unlock, fullscreen, save data, Service Worker, Web Workers → web-game-browser-constraints.md; Blender Python script, headless render, procedural mesh, compositor node graph → relevant blender/ skill.
 
 ### 4. State the invoked role or squad
 
