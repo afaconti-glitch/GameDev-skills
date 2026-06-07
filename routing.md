@@ -36,7 +36,7 @@ For complex work, invoke a squad. For specialist work, invoke a role. For ambigu
 | Game Designer | `.claude/skills/game-designer.md` | Mechanics, systems, economy, progression, balance, prototyping, paper design |
 | Level Designer | `.claude/skills/level-designer.md` | Layout, pacing, encounter design, spatial flow, beats, blockout-to-polish progression |
 | Narrative Designer | `.claude/skills/narrative-designer.md` | Story, characters, dialogue, world lore, quests, branching, in-world text |
-| Game UX Designer | `.claude/skills/game-ux-designer.md` | HUD, menus, onboarding, control schemes, readability, input affordance, game accessibility |
+| Game UX Designer | `.claude/skills/game-ux-designer.md` | HUD, menus, onboarding, control schemes, readability, input affordance, UI architecture and data-flow, diegesis (where UI sits in the fiction), localisation, UI performance, world-space/XR UI, game accessibility (+ game-ui-ux-framework.md for the design-space model, tech landscape, and standards) |
 
 ### Art
 
@@ -176,11 +176,12 @@ Shared state lives in `.claude/cache/pipeline.json`. Small flow does not touch t
 
 ## Game design methodology
 
-Rule-level references for mechanic evaluation, balance, and design rigour. Use alongside the game-designer or game-director personas when you need a structured decision framework rather than intuition alone.
+Rule-level references for mechanic evaluation, balance, design rigour, and UI/UX. Use alongside the game-designer, game-director, or game-ux-designer personas when you need a structured decision framework rather than intuition alone.
 
 | Skill | File | Purpose |
 |---|---|---|
 | Game design framework | `game-design/game-design-framework.md` | 5-Component Relevance Filter (Clarity, Motivation, Response, Satisfaction, Fit), Numbers Policy for evidence-based balancing (floor/target/ceiling), State Machine Checklist for all player actions, and playtest scenario templates |
+| Game UI/UX framework | `game-design/game-ui-ux-framework.md` | UI design-space model (diegetic / spatial / meta / non-diegetic + the "immersion is earned" evidence), UI technology landscape and how to choose a system, data-driven UI architecture, accessibility grounded in real standards (WCAG 2.2, Game Accessibility Guidelines, XAG, APX), localisation/fonts, a competency rubric with portfolio gates, and a curated free learning library |
 
 ### When to invoke game-design reference skills directly
 
@@ -188,8 +189,9 @@ Rule-level references for mechanic evaluation, balance, and design rigour. Use a
 - Setting or reviewing balance numbers from first principles (Numbers Policy)
 - Specifying a player action completely before it goes into production (State Machine Checklist)
 - Writing a structured playtest scenario that produces actionable data
+- Deciding where a UI element should sit relative to the fiction (design-space model), choosing a UI technology/paradigm, wiring UI to a source of truth, or turning accessibility into concrete acceptance criteria (Game UI/UX framework)
 
-Use the Game Designer persona (`.claude/skills/game-designer.md`) for broader mechanic and system design work. The framework is the underlying methodology the persona draws on.
+Use the Game Designer persona (`.claude/skills/game-designer.md`) for broader mechanic and system design work, and the Game UX Designer persona (`.claude/skills/game-ux-designer.md`) for UI/UX work. The frameworks are the underlying methodology the personas draw on.
 
 ---
 
@@ -257,7 +259,7 @@ Use a squad when the task touches more than one of: creative vision, design feel
 
 ### 3. Prefer specialist roles for narrow work
 
-Use one role when the task is clearly owned by that discipline. Examples: HUD readability tweak → Game UX Designer; shader perf review → Graphics Programmer or Technical Artist; encounter pacing → Level Designer; balance pass on an economy → Game Designer (+ game-design-framework.md for Numbers Policy); dialogue line rewrite → Narrative Designer; build pipeline failure → Engine/Tools Programmer; mix or stinger problem → Audio Director; player-sentiment summary → Community Manager; repro instructions for a bug → QA Lead; playtest protocol or synthesis → Player Researcher; metric definition, funnel diagnosis, or experiment readout → Game Analyst; threat model, anti-cheat review, save / entitlement integrity, privacy / DPIA, platform-cert security, modding-surface review, AI safety check → Security Specialist; Three.js scene design, draw-call budget, WebGPU migration, WebXR integration, R3F performance → Web Renderer (+ web-rendering/ reference skills); Phaser 3 scene setup, physics config, tilemap, animation, pooling → phaser-best-practices.md; tab visibility, audio unlock, fullscreen, save data, Service Worker, Web Workers → web-game-browser-constraints.md; Blender Python script, headless render, procedural mesh, compositor node graph → relevant blender/ skill.
+Use one role when the task is clearly owned by that discipline. Examples: HUD readability tweak → Game UX Designer; HUD/menu diegesis, UI-architecture, data-driven UI wiring, or accessibility-criteria question → Game UX Designer (+ game-ui-ux-framework.md for the design-space model, technology landscape, and accessibility standards); shader perf review → Graphics Programmer or Technical Artist; encounter pacing → Level Designer; balance pass on an economy → Game Designer (+ game-design-framework.md for Numbers Policy); dialogue line rewrite → Narrative Designer; build pipeline failure → Engine/Tools Programmer; mix or stinger problem → Audio Director; player-sentiment summary → Community Manager; repro instructions for a bug → QA Lead; playtest protocol or synthesis → Player Researcher; metric definition, funnel diagnosis, or experiment readout → Game Analyst; threat model, anti-cheat review, save / entitlement integrity, privacy / DPIA, platform-cert security, modding-surface review, AI safety check → Security Specialist; Three.js scene design, draw-call budget, WebGPU migration, WebXR integration, R3F performance → Web Renderer (+ web-rendering/ reference skills); Phaser 3 scene setup, physics config, tilemap, animation, pooling → phaser-best-practices.md; tab visibility, audio unlock, fullscreen, save data, Service Worker, Web Workers → web-game-browser-constraints.md; Blender Python script, headless render, procedural mesh, compositor node graph → relevant blender/ skill.
 
 ### 4. State the invoked role or squad
 

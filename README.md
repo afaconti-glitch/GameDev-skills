@@ -2,7 +2,7 @@
 
 Reusable Claude Code agent skills implementing a coordinated game-development studio operating system. Engine-agnostic personas and a delivery pipeline tuned for game features, systems, and content — works alongside any engine (Unity, Unreal, Godot, or custom).
 
-The suite contains 20 studio role personas, a delivery pipeline, 1 game design methodology reference, 14 web rendering reference skills (Three.js/R3F/Phaser + browser constraints), and 4 Blender automation skills — plus a routing brain. Each skill is a self-contained markdown skill (frontmatter + body) following the [Agent Skills](https://agentskills.io/home) format used by Claude Code, OpenAI Codex, and other compatible agents.
+The suite contains 20 studio role personas, a delivery pipeline, 2 methodology references (game design + game UI/UX), 14 web rendering reference skills (Three.js/R3F/Phaser + browser constraints), and 4 Blender automation skills — plus a routing brain. Each skill is a self-contained markdown skill (frontmatter + body) following the [Agent Skills](https://agentskills.io/home) format used by Claude Code, OpenAI Codex, and other compatible agents.
 
 ## What's in here
 
@@ -57,8 +57,9 @@ GameDev-skills/
 │   ├── blender-3d-modeling.md        # Procedural meshes, BMesh, modifiers, curves, terrain
 │   ├── blender-render-automation.md  # Cycles/EEVEE config, GPU setup, batch renders, turntables
 │   └── blender-compositing.md        # Compositor nodes, colour grading, render passes, EXR output
-├── game-design/                      # Game design methodology references
-│   └── game-design-framework.md      # 5-Component Filter, Numbers Policy, State Machine Checklist, playtest templates
+├── game-design/                      # Game design + UI/UX methodology references
+│   ├── game-design-framework.md      # 5-Component Filter, Numbers Policy, State Machine Checklist, playtest templates
+│   └── game-ui-ux-framework.md       # UI design-space model, tech landscape, data-driven UI, accessibility standards, competency rubric, learning library
 ├── routing.md                        # The routing brain (paste into your CLAUDE.md)
 └── README.md
 ```
@@ -79,13 +80,14 @@ Seven skills that work as an integrated execution framework for game features an
 
 See `routing.md` for the full tier matrix and when to invoke each skill directly.
 
-## Game design methodology
+## Game design & UI/UX methodology
 
-One structured methodology reference that complements the Game Designer persona. Use directly when you need a decision framework, not just a persona stance.
+Two structured methodology references that complement the Game Designer and Game UX Designer personas. Use directly when you need a decision framework, not just a persona stance.
 
 | Skill | Use when |
 |---|---|
 | game-design-framework | Evaluating whether a mechanic earns its place (5-Component Filter); setting balance numbers from first principles (Numbers Policy with floor/target/ceiling); fully specifying a player action before production (State Machine Checklist); writing structured playtest scenarios |
+| game-ui-ux-framework | Deciding where a UI element sits relative to the fiction (diegetic / spatial / meta / non-diegetic design-space model, with the "immersion is earned" evidence); choosing a UI technology/paradigm (retained / immediate / MVVM / embedded web; Unity, Unreal, RmlUi, ImGui, Noesis, web, Godot landscape); wiring UI to a source of truth (data-driven architecture); turning accessibility into concrete acceptance criteria (WCAG 2.2, Game Accessibility Guidelines, XAG, APX); localisation/fonts; competency rubric, portfolio gates, and a curated free learning library |
 
 ## Web rendering reference skills
 
