@@ -249,7 +249,9 @@ If you want more off than that, see below.
 ### Turning them off
 
 **`disable` is what you want, not `uninstall`.** It leaves the plugin installed and version-pinned, so
-the metadata stops loading but switching back is instant with no re-download.
+the metadata stops loading but switching back is instant with no re-download. Note also that
+`claude plugin marketplace remove gamedev-skills` takes both plugins with it — that is a third,
+blunter thing again, and not the way to turn them off.
 
 ```bash
 claude plugin disable game-tech     # reclaims ~1,866 tokens per session
@@ -315,7 +317,25 @@ that file.
 ### Migrating
 
 **From `afovea/GameDev-skills`.** The repository is now `afovea/game-dev-skills`. GitHub redirects
-automatically, but update your remote and marketplace reference when convenient.
+automatically, so **an existing install keeps working and you do not have to do anything.** Update a
+git remote whenever you like:
+
+```bash
+git remote set-url origin https://github.com/afovea/game-dev-skills.git
+```
+
+Re-pointing the *marketplace* is the one to be careful with. **`marketplace remove` uninstalls every
+plugin that came from it** — no warning, no prompt. If you want the reference tidied, expect to
+reinstall in the same sitting:
+
+```bash
+claude plugin marketplace remove gamedev-skills      # <- also removes both plugins
+claude plugin marketplace add afovea/game-dev-skills
+claude plugin install game-team@gamedev-skills
+claude plugin install game-tech@gamedev-skills
+```
+
+Your enable/disable state does not survive that round trip either; both come back enabled.
 
 **From the v1.x layout.** v1 shipped loose markdown files (`game-team/game-designer.md`) with the
 pipeline nested under `skills/pipeline/`. v2 gives every skill its own directory. An old filesystem
