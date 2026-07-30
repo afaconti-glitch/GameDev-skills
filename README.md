@@ -240,14 +240,70 @@ the figures Claude Code reports for v2.0.0, not estimates:
 | `game-tech` | 18 | ~1,866 tokens | `blender-render-automation`, ~3.7k |
 | Both | 47 | ~4,331 tokens | |
 
-Check your own install with `claude plugin details game-team`. If the cost is unwelcome:
-
-```bash
-claude plugin disable game-tech           # off, still installed
-claude plugin install ... --scope project # confine it to one repo
-```
+Check your own install with `claude plugin details game-team`. It also breaks the cost down per skill,
+so you can see which ones are expensive before you invoke them.
 
 Installing only `game-team` on non-browser projects is the main reason the suite ships as two plugins.
+If you want more off than that, see below.
+
+### Turning them off
+
+**`disable` is what you want, not `uninstall`.** It leaves the plugin installed and version-pinned, so
+the metadata stops loading but switching back is instant with no re-download.
+
+```bash
+claude plugin disable game-tech     # reclaims ~1,866 tokens per session
+claude plugin enable  game-tech     # back on
+```
+
+Both take effect at the **next session start**, the same as installing did. Nothing changes in the
+session you run them from.
+
+`disable --all` turns off every plugin you have, not just these two.
+
+#### Per-project, not all-or-nothing
+
+Both commands take `-s user|project|local`. Project scope overrides user scope, so you can keep a
+plugin on globally and switch it off in the repos that do not need it:
+
+```bash
+cd ~/code/my-web-app
+claude plugin disable game-tech --scope project
+```
+
+That writes a `.claude/settings.json` in that project:
+
+```json
+{
+  "enabledPlugins": {
+    "game-tech@gamedev-skills": false
+  }
+}
+```
+
+Your user-level settings are untouched, and the plugin stays enabled everywhere else. The file is the
+ground truth, so you can commit it to share the choice with a team, or hand-edit it rather than using
+the CLI.
+
+The same mechanism should invert — disabled at user level, `true` in one project's `enabledPlugins` —
+which gives you "off until I open the game repo". That direction is the obvious reading of a boolean
+map where project wins, but only the disable-in-project direction above has been verified here.
+
+#### What you give up
+
+Disabling is not free. With a plugin off, its `/name` invocations stop resolving, and the routing brain
+has nothing to route *to* — prose requests fall back to a general answer rather than a discipline's.
+
+If you work mostly in one game repo, the better trade is a project install:
+
+```bash
+./install.sh --team-only /path/to/your-game
+```
+
+That puts the skills in `<project>/.claude/skills/` and the routing brain in its `CLAUDE.md`, so the
+suite is fully live in that repo and costs nothing anywhere else. You can then disable the plugins
+globally without losing anything where it matters. Watch for
+[shadowing](#precedence-and-duplicates) if you keep both routes.
 
 ### Compatibility
 
