@@ -4,3 +4,10 @@
 .idea/
 .vscode/
 node_modules/
+__pycache__/
+
+# Local-only evaluation harness. Kept out of the published repo.
+evals/
+
+# Local Claude Code state. Machine-specific; never publish.
+.claude/

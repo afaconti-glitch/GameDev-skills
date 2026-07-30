@@ -1,261 +1,418 @@
-# GameDev-skills
+# game-dev-skills
 
-Reusable Claude Code agent skills implementing a coordinated game-development studio operating system. Engine-agnostic personas and a delivery pipeline tuned for game features, systems, and content — works alongside any engine (Unity, Unreal, Godot, or custom).
+A game studio as **47 Agent Skills**, in two installable plugins — 20 studio roles, a 7-skill delivery
+pipeline, 2 design methodology frameworks, 14 browser-rendering references and 4 Blender automation
+skills — with a routing brain that decides which one a request belongs to.
 
-The suite contains 20 studio role personas, a delivery pipeline, 2 methodology references (game design + game UI/UX), 14 web rendering reference skills (Three.js/R3F/Phaser + browser constraints), and 4 Blender automation skills — plus a routing brain. Each skill is a self-contained markdown skill (frontmatter + body) following the [Agent Skills](https://agentskills.io/home) format used by Claude Code, OpenAI Codex, and other compatible agents.
+Invoke a role when you want a specific discipline's judgement: a mechanic spec, an encounter pass, an
+art-bible call, a HUD readability review, a threat model, a cert-readiness decision. Run the pipeline
+when a task should be classified, chunked and verified rather than just done.
 
-## What's in here
+Every skill is engine-agnostic, so the same suite works on a Unity, Unreal, Godot, Bevy or browser
+project without dragging another project's context along.
+
+## Quick start
+
+**Claude Code (terminal):**
 
 ```
-GameDev-skills/
-├── game-team/                        # The 20 studio role personas
-│   ├── game-producer.md
-│   ├── creative-director.md
-│   ├── game-director.md
-│   ├── player-researcher.md
-│   ├── game-analyst.md
-│   ├── game-designer.md
-│   ├── level-designer.md
-│   ├── narrative-designer.md
-│   ├── game-ux-designer.md
-│   ├── art-director.md
-│   ├── concept-artist.md
-│   ├── technical-artist.md
-│   ├── gameplay-programmer.md
-│   ├── engine-tools-programmer.md
-│   ├── graphics-programmer.md
-│   ├── web-renderer.md               # Three.js / R3F / WebGL / WebGPU / WebXR
-│   ├── security-specialist.md
-│   ├── audio-director.md
-│   ├── qa-lead.md
-│   └── community-manager.md
-├── pipeline/                         # Delivery pipeline execution suite
-│   ├── run-pipeline.md               # Entry point — classify, confirm, dispatch
-│   ├── requirements-generator.md     # Lightweight feature/system intake
-│   ├── shape-task.md                 # Decompose brief into vertical slices
-│   ├── execute-chunk.md              # Implement one chunk safely
-│   ├── close-chunk.md                # Verify chunk closure against feel + acceptance
-│   ├── cleanup-verify.md             # Post-pipeline build, perf, and asset sweep
-│   └── systematic-debugging.md       # Iron Law 4-phase debugging — root cause before any fix
-├── web-rendering/                    # Browser game reference skills (rules + runnable examples)
-│   ├── three-js-best-practices.md    # 120+ rules — memory, draw calls, shaders, WebGPU, WebXR, mobile
-│   ├── r3f-best-practices.md         # 70+ rules — useFrame, Zustand, Drei, Suspense, physics
-│   ├── phaser-best-practices.md      # Phaser 3 — scene lifecycle, physics, atlas, input, animation, tilemap, pooling
-│   ├── web-game-browser-constraints.md # Engine-agnostic — tab throttling, iOS audio, fullscreen, save data, SW cache
-│   ├── threejs-fundamentals.md       # Scene, cameras, renderer, Object3D, transforms, math utilities
-│   ├── threejs-animation.md          # AnimationMixer, skeletal, morph targets, blending, spring physics
-│   ├── threejs-shaders.md            # ShaderMaterial, uniforms, 6 GLSL patterns, onBeforeCompile
-│   ├── threejs-geometry.md           # BufferGeometry, 15+ shapes, InstancedMesh, merging, point clouds
-│   ├── threejs-interaction.md        # Camera controls, raycasting, TransformControls, keyboard/touch
-│   ├── threejs-lighting.md           # 6 light types, shadows, HDR/PMREM, 3-point studio, LightProbe
-│   ├── threejs-textures.md           # Loading, colour spaces, PBR set, video/canvas, KTX2, disposal
-│   ├── threejs-materials.md          # 9 material types, PBR advanced (clearcoat/transmission), toon
-│   ├── threejs-postprocessing.md     # EffectComposer, 15+ passes, bloom, SSAO, custom ShaderPass
-│   └── threejs-loaders.md            # GLTFLoader+DRACO/KTX2, OBJ/FBX/STL, RGBELoader, async patterns
-├── blender/                          # Blender Python automation skills
-│   ├── blender-scripting.md          # Foundation — headless execution, bpy API, import/export, batch
-│   ├── blender-3d-modeling.md        # Procedural meshes, BMesh, modifiers, curves, terrain
-│   ├── blender-render-automation.md  # Cycles/EEVEE config, GPU setup, batch renders, turntables
-│   └── blender-compositing.md        # Compositor nodes, colour grading, render passes, EXR output
-├── game-design/                      # Game design + UI/UX methodology references
-│   ├── game-design-framework.md      # 5-Component Filter, Numbers Policy, State Machine Checklist, playtest templates
-│   └── game-ui-ux-framework.md       # UI design-space model, tech landscape, data-driven UI, accessibility standards, competency rubric, learning library
-├── routing.md                        # The routing brain (paste into your CLAUDE.md)
-└── README.md
+/plugin marketplace add afovea/game-dev-skills
+/plugin install game-team@gamedev-skills
 ```
+
+**Claude Desktop** — `/plugin` is terminal-only, so use the CLI:
+
+```bash
+claude plugin marketplace add afovea/game-dev-skills
+claude plugin install game-team@gamedev-skills
+```
+
+Building for the browser, or generating assets in Blender? Add the companion plugin:
+
+```bash
+claude plugin install game-tech@gamedev-skills
+```
+
+Restart your session. The skills appear in **Settings → Skills** and become invocable by name.
+
+```
+/game-designer Our dodge has no commitment. Add a parry window without making it strictly better.
+```
+
+## Two plugins, one marketplace
+
+| Plugin | Skills | Install it when |
+|---|---|---|
+| **`game-team`** | 29 — 20 roles, 7 pipeline, 2 frameworks | Always. This is the studio |
+| **`game-tech`** | 18 — 14 browser rendering, 4 Blender | The game runs in a browser, or you script Blender |
+
+They are split because always-on metadata is charged in **every** session, including projects with
+nothing to do with games. A Unity team has no use for fourteen Three.js skills and should not pay for
+them. See [Cost](#cost) for the numbers.
+
+## Invoking a skill
+
+Type `/` then the skill name, **and give it the task in the same message.** Invoking bare loads the
+persona with no brief, and it will just ask you what you want.
+
+```
+/level-designer This corridor reads as a dead end. Players stop and backtrack.
+/technical-artist Our foliage shader costs 4ms on Switch. Where does that go?
+/security-specialist Players are editing the save file to unlock cosmetics. Options?
+/run-pipeline Add a stamina cost to sprinting, surfaced on the HUD.
+```
+
+Two forms both work:
+
+| Form | Use when |
+|---|---|
+| `/game-designer` | Normal use — shortest form |
+| `/game-team:game-designer` | Unambiguous. Needed only if a personal or project skill shares the name |
+
+### They do not fire on their own
+
+Every skill sets `disable-model-invocation: true`. Describing a balance problem in prose will **not**
+auto-summon `/game-designer`. That is deliberate: automatic invocation selects by description
+keyword-matching, and keyword-matching routes game work particularly badly — "performance" pulls four
+plausible roles, "shader" pulls three, and "balance" pulls the designer when the honest answer is that
+nobody has the evidence yet.
+
+You get selection two ways instead:
+
+- **Explicitly**, with `/name` — when you know which discipline you want.
+- **Via the routing brain**, by asking in plain prose — when you don't. See
+  [The routing brain](#the-routing-brain-optional-second-layer).
+
+### Once invoked, a skill stays loaded
+
+The persona persists across turns for the rest of the conversation. Invoke a different one to switch;
+start a fresh session to drop it.
+
+## The 47 skills
+
+### `game-team` — production and direction
+
+| Invoke | Use when |
+|---|---|
+| `/game-producer` | Scoping, scheduling, dependency tracking, risk, milestones, cross-discipline coordination |
+| `/creative-director` | Vision, pillars, tone, creative cohesion, "does this fit the game" calls |
+| `/game-director` | Gameplay vision execution, design ownership, feature trade-offs, design arbitration |
+
+### `game-team` — research, insight and data
+
+| Invoke | Use when |
+|---|---|
+| `/player-researcher` | Research planning, playtests, interviews, observational studies, surveys, qualitative synthesis, evidence-strength calls |
+| `/game-analyst` | Metric definition, telemetry design, funnel and retention analysis, A/B experiments, balance evidence, dashboards |
+
+### `game-team` — design
+
+| Invoke | Use when |
+|---|---|
+| `/game-designer` | Mechanics, systems, economy, progression, balance, prototyping, paper design |
+| `/level-designer` | Layout, pacing, encounter design, spatial flow, beats, blockout-to-polish |
+| `/narrative-designer` | Story, characters, dialogue, world lore, quests, branching, in-world text |
+| `/game-ux-designer` | HUD, menus, onboarding, control schemes, readability, input affordance, UI architecture and data flow, diegesis, localisation, UI performance, world-space/XR UI, game accessibility |
+
+### `game-team` — art
+
+| Invoke | Use when |
+|---|---|
+| `/art-director` | Visual style, pillars, art bible, cross-discipline visual consistency, art QA |
+| `/concept-artist` | Visual ideation, mood, character/environment/prop concepts, look-dev |
+| `/technical-artist` | Shaders, materials, rigging, pipelines, perf budgets, art-to-engine handoff |
+
+### `game-team` — engineering
+
+| Invoke | Use when |
+|---|---|
+| `/gameplay-programmer` | Mechanic implementation, AI behaviour, input, character controller, gameplay systems |
+| `/engine-tools-programmer` | Engine systems, editor tools, build pipeline, automation, platform integration |
+| `/graphics-programmer` | Rendering, shaders, lighting, post-processing, GPU profiling, scalability |
+| `/web-renderer` | Three.js / R3F scene architecture, WebGL/WebGPU performance, draw-call budget, TSL shaders, glTF pipeline, WebXR, cross-device scaling |
+| `/security-specialist` | Threat modelling, anti-cheat and server authority, save and entitlement integrity, identity, privacy, platform-cert security, modding surface, AI safety, incident readiness |
+
+### `game-team` — audio, quality and community
+
+| Invoke | Use when |
+|---|---|
+| `/audio-director` | Sound design, music direction, mix, audio implementation patterns, audio pipeline |
+| `/qa-lead` | Test planning, regression, bug triage, build certification readiness, repro discipline |
+| `/community-manager` | Player feedback, sentiment, launch readiness from a player perspective, live-service signal |
+
+### `game-team` — delivery pipeline
+
+| Invoke | Use when |
+|---|---|
+| `/run-pipeline` | **Start here for any build task.** Classifies Small / Medium / Large and dispatches |
+| `/requirements-generator` | Turning a rough feature pitch into a confirmation-ready mini-GDD |
+| `/shape-task` | Decomposing a brief into requirements, strategy and vertical-slice chunks |
+| `/execute-chunk` | Implementing one approved chunk with scoped edits and targeted validation |
+| `/close-chunk` | Verifying a chunk against its acceptance criteria, including feel and perf |
+| `/cleanup-verify` | Post-run sweep: regenerate artefacts, rebuild, run the gate chain, check the perf budget, report drift |
+| `/diagnose` | Iron Law debugging — root cause → pattern → hypothesis → fix. Use before writing any fix |
+
+### `game-team` — methodology frameworks
+
+| Invoke | Use when |
+|---|---|
+| `/game-design-framework` | Deciding whether a mechanic earns its place (5-Component Filter); setting balance numbers from first principles (Numbers Policy, floor/target/ceiling); fully specifying a player action before production (State Machine Checklist); writing structured playtest scenarios |
+| `/game-ui-ux-framework` | Placing UI relative to the fiction (diegetic / spatial / meta / non-diegetic, with the "immersion is earned" evidence); choosing a UI technology; wiring UI to a source of truth; turning accessibility into acceptance criteria (WCAG 2.2, Game Accessibility Guidelines, XAG, APX); localisation and fonts; a competency rubric and learning library |
+
+### `game-tech` — browser rendering
+
+| Invoke | Use when |
+|---|---|
+| `/three-js-best-practices` | Writing, reviewing or optimising Three.js — memory disposal, draw calls, instancing, glTF, shaders (GLSL and TSL), WebGPU, WebXR, mobile |
+| `/r3f-best-practices` | React Three Fiber — useFrame, preventing re-renders, Zustand selectors, Drei, Suspense, Rapier physics |
+| `/phaser-best-practices` | Phaser 3 — scene lifecycle, Arcade vs Matter.js, texture atlases, audio sprites, input, animation state machines, tilemaps, pooling, ScaleManager |
+| `/web-game-browser-constraints` | Engine-agnostic browser reality — tab throttling, iOS audio unlock, Fullscreen, Pointer Lock, Wake Lock, localStorage vs IndexedDB, Service Worker caching, memory pressure, Web Workers |
+| `/threejs-fundamentals` | Scene, cameras, renderer, Object3D hierarchy, transforms, Vector3/Quaternion/Matrix4 maths |
+| `/threejs-animation` | AnimationMixer, clips and actions, skeletal bones, morph targets, blending, spring physics |
+| `/threejs-shaders` | ShaderMaterial vs RawShaderMaterial, uniform types, Fresnel/dissolve/noise patterns, onBeforeCompile |
+| `/threejs-geometry` | BufferGeometry, 15+ built-ins, InstancedMesh, merging, EdgesGeometry, point clouds |
+| `/threejs-interaction` | Camera controls, raycasting for click and hover, TransformControls, keyboard and touch input |
+| `/threejs-lighting` | 6 light types, shadow config, HDR environments via PMREM, 3-point studio, LightProbe |
+| `/threejs-textures` | Loading, colour spaces, wrapping and filtering, PBR sets, video and canvas textures, KTX2, disposal |
+| `/threejs-materials` | 9 material types, PBR clearcoat/transmission/iridescence/sheen, toon, transparency |
+| `/threejs-postprocessing` | EffectComposer, bloom, SSAO, depth of field, outlines, FXAA/SMAA, custom ShaderPass |
+| `/threejs-loaders` | GLTFLoader with DRACO/KTX2, OBJ/FBX/STL, RGBELoader, LoadingManager, async patterns |
+
+### `game-tech` — Blender automation
+
+| Invoke | Use when |
+|---|---|
+| `/blender-scripting` | Any Blender Python script — headless execution, `bpy`, import/export, batch processing. **Start here**; the other three build on it |
+| `/blender-3d-modeling` | Procedural geometry — `from_pydata`, BMesh, modifiers, curves, NURBS, terrain |
+| `/blender-render-automation` | Renders from code — Cycles/EEVEE, GPU setup, camera and lighting rigs, batch renders, turntables |
+| `/blender-compositing` | Compositor node graphs — colour grading, render passes, glare, depth of field, multi-layer EXR |
+
+All Blender skills target Blender 3.0+ with Python 3.10+ and are headless-compatible.
+
+## Install options
+
+| Route | Command | You get |
+|---|---|---|
+| **Plugin** *(recommended)* | `claude plugin install game-team@gamedev-skills` | Skills visible in Settings → Skills, updatable with one command. Skills only |
+| **Per project** | `install.sh /path/to/project` | Skills in `<project>/.claude/skills/` **plus** the routing brain in its `CLAUDE.md` and a seeded pipeline adapter |
+| **Personal** | `install.sh --personal` | Skills in `~/.claude/skills/` — every project. Skills only |
+| **Submodule** | `install.sh --submodule /path/to/project` | Per-project, pinned to a tag, symlinked so discovery still works |
+
+The script is in the repo, so clone first for those routes:
+
+```bash
+git clone https://github.com/afovea/game-dev-skills.git
+./game-dev-skills/install.sh /path/to/your-project
+```
+
+It copies the skills, appends the routing brain to `CLAUDE.md` **with the paths already rewritten**,
+updates `.gitignore`, and seeds a pipeline adapter template. Re-running updates the routing block in
+place between its markers and leaves anything you wrote above it alone.
+
+Add `--team-only` or `--tech-only` to install one plugin instead of both.
+
+### Which route
+
+- **Just want the skills, everywhere, visible?** Plugin.
+- **Want role arbitration too?** Plugin *plus* a per-project install — they stack. Only the per-project
+  route can add `routing.md`, because `CLAUDE.md` is a per-project file.
+- **Want it pinned and tracked in the consuming repo?** Submodule.
+
+**The repo is the source, not an installation.** Cloning it makes the skills visible nowhere. Claude
+Code discovers them at `~/.claude/skills/<name>/SKILL.md` or
+`<project>/.claude/skills/<name>/SKILL.md`; the Skills panel lists only plugin-provided skills. Pick a
+route above, or you will not see them.
+
+### Precedence and duplicates
+
+Enterprise overrides personal, personal overrides project, and any of them overrides a plugin skill of
+the same name. So a personal install **shadows the plugin silently** — both work, but you are running
+the copy you probably did not mean to update. Pick one route per machine.
+
+### Cost
+
+Plugin metadata is loaded in every session, including projects with nothing to do with games. Measured
+from the shipped frontmatter — the `name` and `description` of every skill, which is what a host keeps
+resident:
+
+| Plugin | Skills | Always-on metadata |
+|---|---|---|
+| `game-team` | 29 | ~2,400 tokens |
+| `game-tech` | 18 | ~1,800 tokens |
+| Both | 47 | ~4,200 tokens |
+
+Confirm the exact figure for your install with `claude plugin details game-team`. If it is unwelcome:
+
+```bash
+claude plugin disable game-tech           # off, still installed
+claude plugin install ... --scope project # confine it to one repo
+```
+
+Installing only `game-team` on non-browser projects is the main reason the suite ships as two plugins.
+
+### Compatibility
+
+The skills are plain markdown following the [Agent Skills](https://agentskills.io) standard, so they
+work with any host that reads `SKILL.md`. The plugin route, `/name` invocation and the `claude plugin`
+CLI are Claude Code features. The routing brain is a `CLAUDE.md` convention and needs a host that reads
+that file.
+
+### Migrating
+
+**From `afovea/GameDev-skills`.** The repository is now `afovea/game-dev-skills`. GitHub redirects
+automatically, but update your remote and marketplace reference when convenient.
+
+**From the v1.x layout.** v1 shipped loose markdown files (`game-team/game-designer.md`) with the
+pipeline nested under `skills/pipeline/`. v2 gives every skill its own directory. An old filesystem
+install leaves both behind, and the skills end up present twice:
+
+```bash
+rm -f ~/.claude/skills/*.md              # personal installs
+rm -r ~/.claude/skills/pipeline
+rm -f <project>/.claude/skills/*.md      # project installs
+rm -r <project>/.claude/skills/pipeline
+```
+
+`install.sh` detects this and prints the exact commands rather than deleting anything itself.
+
+One skill was renamed: **`systematic-debugging` is now `diagnose`**, matching the sibling
+[product-team-skills](https://github.com/afovea/product-team-skills) suite so `/diagnose` means the same
+thing in both. The Iron Law methodology is unchanged.
+
+## The routing brain (optional second layer)
+
+[`routing.md`](./routing.md) goes in a project's `CLAUDE.md` and decides which role or squad a request
+belongs to, so you can ask in prose instead of picking a skill:
+
+> "The jump feels floaty at the apex." → Game Designer
+> "Players can't tell which door is unlocked." → Game UX Designer
+> "Fix the typo in the tutorial bark." → no specialist; it is a mechanical edit
+
+It also defines **six squads** for cross-functional work — Concept, Pre-production, Production,
+Polish & Cert, Live & Community, Tech Foundation — because "is this ready to ship?" is not one
+discipline's call.
+
+Two rules do the heavy lifting, and are worth reading before you edit it:
+
+- **Route on the decision, not on a noun.** A collision table covers the words that reliably drag a
+  request to the wrong role: *performance*, *balance*, *feel*, *shader*, *UI*, *story*, *risk*, *level*,
+  and "players are complaining". A build-versus-buy question about audio middleware is a pipeline
+  decision that happens to mention audio.
+- **Trivial work needs no specialist.** Typo fixes, renames and placeholder swaps go straight to
+  implementation. That is a floor on role selection, not on care — the pipeline's bump-up rules still
+  apply if the change touches a risky path.
+
+There is also a **Working with engines, middleware and assets** section, which exists because its
+failures are silent: writing against the wrong engine major, missing a font or middleware licence that
+changes at ship, or losing track of who maintains a copied-in asset.
 
 ## Delivery pipeline
 
-Seven skills that work as an integrated execution framework for game features and systems. The entry point is `run-pipeline` — it classifies work by size and routes it through the right phase composition, sharing state via `.claude/cache/pipeline.json`.
+`/run-pipeline` is the entry point. It classifies scope, surfaces a plan for confirmation, then
+dispatches — Small runs a single scoped change, Medium adds requirements/shaping and a chunk loop,
+Large adds repository inspection and an architect plan.
 
-| Skill | Use when |
+Two documents make it portable:
+
+| Document | Purpose |
 |---|---|
-| run-pipeline | Starting any feature, system, content, or tools task — it classifies scope (Small/Medium/Large) and dispatches to the right flow |
-| requirements-generator | Turning a rough feature pitch into a confirmation-ready mini-GDD |
-| shape-task | Decomposing a confirmed brief into requirements, strategy, and vertical-slice chunks |
-| execute-chunk | Implementing one approved chunk safely with inspection, scoped edits, and targeted validation |
-| close-chunk | Verifying a completed chunk against acceptance criteria including feel, perf, and build health |
-| cleanup-verify | Post-pipeline gate sweep: build runs, no missing references, perf budget, editor opens cleanly |
-| systematic-debugging | Iron Law 4-phase methodology (Root Cause → Pattern → Hypothesis → Implementation) — use before writing any fix |
+| [`project-adapter.md`](./plugins/game-team/reference/project-adapter.md) | Your project's engine and version, build/test/cook commands, gate chain, derived artefacts, perf budget, risky paths, host integrations. Copy to `.claude/pipeline-adapter.md` and fill in |
+| [`state-schema.md`](./plugins/game-team/reference/state-schema.md) | The shared state contract, and how skills degrade when state is unavailable |
 
-See `routing.md` for the full tier matrix and when to invoke each skill directly.
+**It runs without an adapter.** Skills fall back to discovering the engine from its project files
+(`ProjectVersion.txt`, `*.uproject`, `project.godot`, `Cargo.toml`, a lockfile) and the gates from CI
+config, and state what they found. Writing the adapter makes it deterministic and lets you declare what
+discovery cannot infer — which gates may fail, which paths are risky, what "within budget" means, and
+which commands need hardware or a licence server this session does not have.
 
-## Game design & UI/UX methodology
+The gate chain is game-shaped rather than web-app-shaped: missing-reference validation over scenes and
+prefabs, shader compile checks, save-format compatibility against canonical saves, a cook or packager
+dry run, localisation completeness, and platform-cert lint. Derived artefacts include baked lighting,
+nav meshes, atlases and content manifests — which is why `cleanup-verify` reports binary drift and
+refuses to commit it rather than silently regenerating.
 
-Two structured methodology references that complement the Game Designer and Game UX Designer personas. Use directly when you need a decision framework, not just a persona stance.
+Nothing assumes a particular engine, a JavaScript toolchain, or a writable cache.
 
-| Skill | Use when |
-|---|---|
-| game-design-framework | Evaluating whether a mechanic earns its place (5-Component Filter); setting balance numbers from first principles (Numbers Policy with floor/target/ceiling); fully specifying a player action before production (State Machine Checklist); writing structured playtest scenarios |
-| game-ui-ux-framework | Deciding where a UI element sits relative to the fiction (diegetic / spatial / meta / non-diegetic design-space model, with the "immersion is earned" evidence); choosing a UI technology/paradigm (retained / immediate / MVVM / embedded web; Unity, Unreal, RmlUi, ImGui, Noesis, web, Godot landscape); wiring UI to a source of truth (data-driven architecture); turning accessibility into concrete acceptance criteria (WCAG 2.2, Game Accessibility Guidelines, XAG, APX); localisation/fonts; competency rubric, portfolio gates, and a curated free learning library |
+## Repository layout
 
-## Web rendering reference skills
-
-Fourteen technical reference skills for browser-based games — two rule-set/best-practice files plus ten topic-focused skills with Quick Start snippets and runnable code examples. Use alongside the Web Renderer persona or directly for specific implementation lookups.
-
-| Skill | Use when |
-|---|---|
-| three-js-best-practices | Writing, reviewing, or optimising Three.js — memory disposal, draw calls, instancing, glTF loading, shaders (GLSL/TSL), WebGPU, WebXR, mobile |
-| r3f-best-practices | Writing, reviewing, or optimising React Three Fiber — useFrame animation, preventing re-renders, Zustand selectors, Drei helpers, Suspense, physics (Rapier) |
-| phaser-best-practices | Phaser 3 games — scene lifecycle, physics selection (Arcade vs Matter.js), texture atlas pipeline, audio sprites, input, sprite animation state machines, tilemap, object pooling, camera, ScaleManager, mobile |
-| web-game-browser-constraints | Engine-agnostic browser concerns — tab visibility/RAF throttling, iOS audio context unlock, Fullscreen API, Pointer Lock, Screen Wake Lock, localStorage vs IndexedDB, Service Worker caching, memory pressure, Web Workers |
-| threejs-fundamentals | Scene/camera/renderer setup, Object3D hierarchy, transforms, Vector3/Quaternion/Matrix4/Color math |
-| threejs-animation | AnimationMixer, clip/action API, skeletal bones, morph targets, blending, spring physics, procedural motion |
-| threejs-shaders | ShaderMaterial vs RawShaderMaterial, uniform types, Fresnel/dissolve/noise patterns, onBeforeCompile |
-| threejs-geometry | BufferGeometry custom creation, 15+ built-ins, InstancedMesh, merging, EdgesGeometry, point clouds |
-| threejs-interaction | OrbitControls/PointerLockControls, raycasting (click/hover), TransformControls, keyboard/touch input |
-| threejs-lighting | 6 light types, shadow config, HDR env via PMREMGenerator, 3-point studio setup, LightProbe |
-| threejs-textures | Texture loading, colour spaces, wrapping/filtering, PBR set (ORM), video/canvas, KTX2 compression |
-| threejs-materials | 9 material types, PBR clearcoat/transmission/iridescence/sheen, MeshToonMaterial, transparency |
-| threejs-postprocessing | EffectComposer, UnrealBloomPass, SSAOPass, BokehPass, OutlinePass, FXAA/SMAA, custom ShaderPass |
-| threejs-loaders | GLTFLoader+DRACO/KTX2, OBJ/FBX/STL/PLY, RGBELoader, LoadingManager, caching, async/Promise |
-
-## Blender 3D pipeline skills
-
-Four Blender Python automation skills for game asset creation, rendering, and compositing. All scripts are headless-compatible and written for Blender 3.0+ / Python 3.10+.
-
-| Skill | Use when |
-|---|---|
-| blender-scripting | Writing any Blender Python script — headless execution, `bpy` API, import/export, batch processing. Foundation skill — start here |
-| blender-3d-modeling | Generating geometry procedurally — `from_pydata`, BMesh operations, modifiers, curves, NURBS, terrain |
-| blender-render-automation | Configuring renders from code — Cycles/EEVEE setup, GPU acceleration, camera/lighting rigs, batch renders, turntable animations |
-| blender-compositing | Building compositor node graphs — colour grading, render pass combination, glare, depth-of-field, multi-layer EXR output |
-
-## Roles at a glance
-
-### Production and direction
-
-| Role | Use when |
-|---|---|
-| Game Producer | Scoping, scheduling, dependency tracking, risk, milestone planning, cross-discipline coordination |
-| Creative Director | Vision, pillars, tone, holistic creative cohesion, "does this fit the game" calls |
-| Game Director | Gameplay vision execution, design ownership, feature trade-offs, the design buck stops here |
-
-### Research, insight, and data
-
-| Role | Use when |
-|---|---|
-| Player Researcher | Research planning, playtests, interviews, observational studies, surveys, qualitative synthesis, evidence-strength calls |
-| Game Analyst | Metric definition, telemetry design, funnel and retention analysis, A/B experiments, balance evidence, dashboards |
-
-### Design
-
-| Role | Use when |
-|---|---|
-| Game Designer | Mechanics, systems, economy, progression, balance, prototyping, paper design |
-| Level Designer | Layout, pacing, encounter design, spatial flow, beats, blockout-to-polish progression |
-| Narrative Designer | Story, characters, dialogue, world lore, quests, branching, in-world text |
-| Game UX Designer | HUD, menus, onboarding, control schemes, readability, input affordance, game accessibility |
-
-### Art
-
-| Role | Use when |
-|---|---|
-| Art Director | Visual style, pillars, art bible, cross-discipline visual consistency, art QA |
-| Concept Artist | Visual ideation, mood, character/environment/prop concepts, look-dev exploration |
-| Technical Artist | Shaders, materials, rigging, pipelines, perf budgets, art-to-engine handoff |
-
-### Engineering
-
-| Role | Use when |
-|---|---|
-| Gameplay Programmer | Mechanic implementation, AI behaviour, input, character controller, gameplay systems |
-| Engine/Tools Programmer | Engine systems, editor tools, build pipeline, automation, platform integration |
-| Graphics Programmer | Rendering, shaders, lighting, post-processing, GPU profiling, scalability |
-| Web Renderer | Three.js / R3F scene architecture, WebGL/WebGPU performance, draw-call budget, TSL shaders, glTF pipeline, WebXR, cross-device scaling |
-| Security Specialist | Threat modelling, anti-cheat / server-authority, save and entitlement integrity, identity / sessions, privacy and regional compliance, platform-cert security, modding-surface, AI safety, incident readiness |
-
-### Audio, quality, and community
-
-| Role | Use when |
-|---|---|
-| Audio Director | Sound design, music direction, mix, audio implementation patterns, audio pipeline |
-| QA Lead | Test planning, regression, bug triage, build certification readiness, repro discipline |
-| Community Manager | Player feedback, sentiment, launch readiness from a player perspective, live-service signal |
-
-## Installing into a project
-
-### Option A — Git submodule (recommended)
-
-A submodule pins the consuming project to a specific tag, makes updates deliberate (`git submodule update --remote`), and keeps the role files in one canonical place.
-
-```bash
-# Inside the consuming project's repo root
-
-# 1. Add the submodule under .claude/skills-vendor
-git submodule add https://github.com/<your-org>/GameDev-skills.git .claude/skills-vendor
-
-# 2. Pin to a stable tag
-cd .claude/skills-vendor && git checkout v1.0.0 && cd -
-git add .claude/skills-vendor
-git commit -m "Pin GameDev-skills to v1.0.0"
-
-# 3. Configure .gitignore so other Claude state stays local-only
-#    but the submodule path is allowed through
-cat >> .gitignore <<'EOF'
-
-# Claude Code project-local state. The skills suite lives in the
-# tracked submodule below; everything else stays local.
-.claude/*
-!.claude/skills-vendor/
-EOF
-
-# 4. In CLAUDE.md, paste the contents of routing.md and update the
-#    skill paths to point at the vendor directory:
-#    .claude/skills/<role>.md  →  .claude/skills-vendor/game-team/<role>.md
+```
+game-dev-skills/
+├── .claude-plugin/
+│   └── marketplace.json              # makes the repo an addable marketplace
+├── plugins/
+│   ├── game-team/                    # 29 skills — the studio
+│   │   ├── .claude-plugin/plugin.json
+│   │   ├── skills/<name>/SKILL.md    # 20 roles + 7 pipeline + 2 frameworks, flat
+│   │   └── reference/                # shared pipeline docs, deliberately not skills
+│   │       ├── project-adapter.md
+│   │       └── state-schema.md
+│   └── game-tech/                    # 18 skills — the technical library
+│       ├── .claude-plugin/plugin.json
+│       └── skills/<name>/SKILL.md    # 14 web rendering + 4 Blender, flat
+├── routing.md                        # the routing brain
+├── install.sh
+├── NOTICE.md                         # upstream attributions
+└── README.md
 ```
 
-Cloning the consuming project later: `git clone --recurse-submodules <url>` (or `git submodule update --init` after a normal clone).
-
-Updating to a new release of this suite: `cd .claude/skills-vendor && git fetch && git checkout v1.0.0 && cd - && git commit -am "Bump GameDev-skills to v1.0.0"`.
-
-### Option B — Copy (simpler, no upstream tracking)
-
-```bash
-git clone https://github.com/<your-org>/GameDev-skills.git /tmp/GameDev-skills
-mkdir -p .claude/skills/pipeline
-cp /tmp/GameDev-skills/game-team/*.md .claude/skills/
-cp /tmp/GameDev-skills/pipeline/*.md .claude/skills/pipeline/
-echo '.claude/' >> .gitignore
-```
-
-Updates require re-copying. Use this when the project will diverge from the canonical suite.
-
-## Wiring into the consuming project's CLAUDE.md
-
-Copy the contents of [routing.md](./routing.md) into the consuming project's `CLAUDE.md` under a heading like `# Game delivery operating system`.
-
-If you used **Option A**, find-and-replace `.claude/skills/` → `.claude/skills-vendor/game-team/` in the pasted routing block so the paths point at the submodule.
-
-If you used **Option B**, the routing paths already match (`.claude/skills/<role>.md`).
-
-Project-specific context (engine, target platforms, tech budgets, content pipeline, working behaviour) goes **above** the routing brain in `CLAUDE.md`. The routing brain itself stays generic.
+`reference/` holds documents the pipeline skills share. They are not skills, so they sit outside
+`skills/` rather than being forced into a directory that pretends otherwise.
 
 ## Conventions
 
-- All role files use **UK English** spelling.
-- Frontmatter follows the Agent Skills schema: `name`, `description`, `license`, `compatibility`, `metadata` (with `version`, `language`, `persona_type`, `tags`, `intents`, `output_types`).
-- Each role file ends with a `## Maintenance` section listing when to review it. Treat that as a versioning trigger — bump the role's `version` whenever you change behaviour-shaping content.
-- Role files are engine-agnostic by default. Engine specifics (Unity / Unreal / Godot / custom) belong in the consuming project's CLAUDE.md, not in role files.
-- Role files are stable surface area: changes that alter how the role responds should be deliberate and documented in commit messages.
+- All skills use **UK English**.
+- Frontmatter carries `name` and `description` (the two fields the standard requires) plus `license`,
+  `compatibility`, `disable-model-invocation`, and a `metadata` block with `version`, `language`,
+  `persona_type` or `category`, `tags`, `intents` and `output_types`. Everything past the first two is
+  this repo's own convention; hosts ignore what they do not recognise.
+- Keep skill bodies **under 500 lines**, per
+  [Anthropic's authoring guidance](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices).
+  Past that, move detail into that skill's `references/` and link to it with a stated trigger for when
+  to read it — as `three-js-best-practices` and `phaser-best-practices` do. Four skills currently sit
+  just over the line (`blender-compositing` 524, `threejs-interaction` 509, `blender-render-automation`
+  508, `r3f-best-practices` 504); splitting those would cost more in indirection than it saves.
+- Skills are **engine-agnostic**. Engine specifics (Unity / Unreal / Godot / custom) belong in the
+  consuming project's `CLAUDE.md` and pipeline adapter, not in a skill.
+- Cross-plugin references use `/skill-name`, never a relative path — a `game-team` skill cannot assume
+  `game-tech` is installed. Within a plugin, relative markdown links are fine.
+- Every skill ends with `## Maintenance` listing its review triggers. Treat that as a versioning
+  prompt: bump the skill's `version` whenever behaviour-shaping content changes.
 
 ## Versioning
 
-This repo uses semver. Tag releases as `v<MAJOR>.<MINOR>.<PATCH>` on `main`.
+Semver, tagged `v<MAJOR>.<MINOR>.<PATCH>` on `main`.
 
-- **MAJOR** — breaking change to a role's contract (e.g. a renamed intent that consuming routing depends on, or a removed role).
-- **MINOR** — new role added, new intent on an existing role, new output type.
-- **PATCH** — wording tweaks, clarifications, regression-prompt additions, frontmatter fixes.
+- **MAJOR** — breaking change to a skill's contract or to installed paths.
+- **MINOR** — new skill, new intent, new output type.
+- **PATCH** — wording, clarifications, frontmatter fixes.
 
-Consuming projects should pin to a specific tag and update deliberately.
+`version` is declared in each plugin's `plugin.json` and nowhere else. Claude Code pins a plugin to that
+string, so pushing commits without bumping it leaves existing users on the cached copy.
+
+Consuming projects should pin to a tag and update deliberately.
+
+## Attribution
+
+Thirteen skills are adapted from MIT-licensed upstreams — [obra/superpowers](https://github.com/obra/superpowers),
+[CloudAI-X/threejs-skills](https://github.com/CloudAI-X/threejs-skills) and
+[emalorenzo/three-agent-skills](https://github.com/emalorenzo/three-agent-skills). See
+[NOTICE.md](./NOTICE.md) for what came from where.
 
 ## Licence
 
-Proprietary. Internal use only. See [LICENSE](./LICENSE).
+[MIT](./LICENSE). Use it, fork it, adapt it. Attribution appreciated but the licence only requires the
+copyright notice.
 
-## Contributing (internal)
+## Contributing
 
-- Follow the existing role file structure when adding a new role.
-- Update [routing.md](./routing.md) when adding a role: new row in the relevant table, new squad memberships if the role is cross-functional, new entry in the specialist-routing examples.
-- Bump the version in the role file's frontmatter on behaviour-shaping changes.
-- Tag a new release after merge to `main`.
+Issues and pull requests welcome.
+
+- Follow the existing skill structure when adding one, and put it in the right plugin: judgement and
+  process go in `game-team`, technology references go in `game-tech`.
+- Update [routing.md](./routing.md): a row in the relevant table, squad memberships if cross-functional,
+  and an entry in the specialist-routing examples. **The table matters more than the prose** — when a
+  request routes wrongly, fix the table wording first.
+- Bump the plugin's `plugin.json` version and the skill's frontmatter `version` on behaviour-shaping
+  changes.
+- Run `claude plugin validate .` and `claude plugin validate ./plugins/<name>` before opening the PR.
+- Tag a release after merge to `main`.

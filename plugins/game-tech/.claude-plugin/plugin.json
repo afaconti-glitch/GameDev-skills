@@ -1,0 +1,10 @@
+{
+  "name": "game-tech",
+  "version": "2.0.0",
+  "description": "18 technical reference skills for browser games and Blender asset work: 10 Three.js topic references (fundamentals, animation, shaders, geometry, interaction, lighting, textures, materials, post-processing, loaders), Three.js and React Three Fiber best-practice rule sets, Phaser 3, engine-agnostic browser constraints, and 4 Blender Python automation skills. Companion to game-team; skip it for projects that ship to a native engine and author assets elsewhere.",
+  "author": {
+    "name": "Anthony Faconti"
+  },
+  "homepage": "https://github.com/afovea/game-dev-skills",
+  "license": "MIT"
+}

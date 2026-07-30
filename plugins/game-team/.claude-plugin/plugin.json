@@ -1,0 +1,10 @@
+{
+  "name": "game-team",
+  "version": "2.0.0",
+  "description": "A coordinated game studio as 29 skills: 20 role perspectives (production, research, design, art, engineering, audio, QA, community), a 7-skill delivery pipeline that classifies work by size and verifies each chunk, and 2 methodology frameworks. Use when work needs a specific discipline's judgement — a mechanic spec, an encounter pass, an art-bible call, a threat model, a cert-readiness decision — or when a coding task should run through scoped execution with gate checks. Engine-agnostic.",
+  "author": {
+    "name": "Anthony Faconti"
+  },
+  "homepage": "https://github.com/afovea/game-dev-skills",
+  "license": "MIT"
+}

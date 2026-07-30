@@ -1,0 +1,31 @@
+{
+  "name": "gamedev-skills",
+  "description": "A game studio as Agent Skills: role personas, a delivery pipeline, and a browser-rendering and Blender reference library, split into two installable plugins.",
+  "owner": {
+    "name": "Anthony Faconti"
+  },
+  "plugins": [
+    {
+      "name": "game-team",
+      "source": "./plugins/game-team",
+      "description": "A coordinated game studio as 29 skills: 20 role perspectives across production, design, art, engineering, audio, QA and community, a 7-skill delivery pipeline that classifies work by size and verifies each chunk, and 2 methodology frameworks for mechanic design and game UI/UX. Engine-agnostic — works with Unity, Unreal, Godot or a custom engine.",
+      "author": {
+        "name": "Anthony Faconti"
+      },
+      "category": "productivity",
+      "homepage": "https://github.com/afovea/game-dev-skills",
+      "license": "MIT"
+    },
+    {
+      "name": "game-tech",
+      "source": "./plugins/game-tech",
+      "description": "A technical reference library as 18 skills: 14 for browser rendering (Three.js topic references, Three.js and React Three Fiber best practices, Phaser 3, engine-agnostic browser constraints) and 4 for Blender Python automation (scripting, procedural modelling, render automation, compositing). Install alongside game-team when the project ships to the browser or generates assets in Blender.",
+      "author": {
+        "name": "Anthony Faconti"
+      },
+      "category": "productivity",
+      "homepage": "https://github.com/afovea/game-dev-skills",
+      "license": "MIT"
+    }
+  ]
+}
