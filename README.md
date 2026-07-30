@@ -402,6 +402,10 @@ Thirteen skills are adapted from MIT-licensed upstreams — [obra/superpowers](h
 [MIT](./LICENSE). Use it, fork it, adapt it. Attribution appreciated but the licence only requires the
 copyright notice.
 
+Portions are derived from other MIT-licensed projects; [NOTICE.md](./NOTICE.md) carries the upstream
+notices those licences require. It is kept out of `LICENSE` deliberately — GitHub's licence detector
+returns `NOASSERTION` for any file that is not verbatim MIT text.
+
 ## Contributing
 
 Issues and pull requests welcome.
