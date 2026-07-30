@@ -231,17 +231,16 @@ the copy you probably did not mean to update. Pick one route per machine.
 
 ### Cost
 
-Plugin metadata is loaded in every session, including projects with nothing to do with games. Measured
-from the shipped frontmatter — the `name` and `description` of every skill, which is what a host keeps
-resident:
+Plugin metadata is loaded in every session, including projects with nothing to do with games. These are
+the figures Claude Code reports for v2.0.0, not estimates:
 
-| Plugin | Skills | Always-on metadata |
-|---|---|---|
-| `game-team` | 29 | ~2,400 tokens |
-| `game-tech` | 18 | ~1,800 tokens |
-| Both | 47 | ~4,200 tokens |
+| Plugin | Skills | Always-on | Heaviest single skill on invoke |
+|---|---|---|---|
+| `game-team` | 29 | ~2,465 tokens | `game-ui-ux-framework`, ~5.3k |
+| `game-tech` | 18 | ~1,866 tokens | `blender-render-automation`, ~3.7k |
+| Both | 47 | ~4,331 tokens | |
 
-Confirm the exact figure for your install with `claude plugin details game-team`. If it is unwelcome:
+Check your own install with `claude plugin details game-team`. If the cost is unwelcome:
 
 ```bash
 claude plugin disable game-tech           # off, still installed
